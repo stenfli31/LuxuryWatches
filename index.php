@@ -7,14 +7,15 @@
   <title>LuxuryWatches - Время в своем лучшем проявлении</title>
   <link rel="stylesheet" href="./style/global.css" />
   <link rel="stylesheet" href="./style/style.css" />
+  <link rel="stylesheet" href="./style/media.css" />
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
 
 <body>
   <div class="frame">
-    <?php include 'db.php'; ?>
+    <?php require_once 'db.php'; ?>
     <?php include 'header.php'; ?>
-
+    <a href="bdForm.php" class="btn btn-primary admin">Админ</a>
     <main>
       <section class="hero">
         <video class="hero-video" autoplay loop muted>
@@ -31,8 +32,8 @@
         </p>
       </section>
       <section class="section-slider mb-5">
-        <div class="container mt-5">
-          <div id="myCarousel" class="carousel slide" data-bs-ride="carousel" data-bs-interval="3000">
+        <div class="container mt-5 d-flex justify-content-center">
+          <div id="myCarousel" class="carousel slide" style="width: 1920px;" data-bs-ride="carousel" data-bs-interval="3000">
 
             <!-- Точки (индикаторы) -->
             <div class="carousel-indicators">
@@ -42,7 +43,7 @@
             </div>
 
             <!-- Слайды -->
-            <div class="carousel-inner" style="height: 400px;">
+            <div class="carousel-inner" style="height: 400px; ">
               <div class="carousel-item active">
                 <img src="./images/promoSlide.jpg" class="d-block w-100" alt="Слайд 1">
               </div>
@@ -54,30 +55,51 @@
               </div>
             </div>
 
-            <!-- 🚫 Без стрелок -->
+
 
           </div>
         </div>
       </section>
 
+      <?php
+      $stmt = $pdo->query("SELECT * FROM products LIMIT 4");
+      $products = $stmt->fetchAll(PDO::FETCH_ASSOC);
+      function formatPrc($price)
+      {
+        return number_format($price, 0, ".", " ") . ' ₸';
+      }
+      ?>
 
-      <section class="watch-category-photo">
+      <section class="watch-category">
+        <div class="img-container">
+          <img
+            src="./images/manWatch.png"
+            alt="Man's watch collection"
+            class="category-image p-3" />
+        </div>
+        <div class="d-flex  justify-content-start ">
+          <div class="product-grid p-3 ">
 
-        <img
-          src="./images/manWatch.png"
-          alt="Man's watch collection"
-          class="category-image" />
-        <div class="product-grid">
-          <div class="product-card">
-            <img
-              src="https://c.animaapp.com/m9e8fd6qsdWEoD/img/tissot-t-classic-13.png"
-              alt="Tissot T-Classic"
-              class="product-image" />
-            <h3 class="product-title">Tissot T-Classic</h3>
-            <p class="product-price">484 000 ₸</p>
-            <button class="favorite-button" aria-label="Add to favorites">
-              <img src="https://c.animaapp.com/m9e8fd6qsdWEoD/img/vector.svg" alt="" />
-            </button>
+            <?php
+            $img_path = "./images/";
+            if (!empty($products)):
+              foreach ($products as $product): ?>
+                <div class="product-card">
+
+                  <img
+                    src="<?= $img_path . $product['product_img'] ?>"
+                    alt="<?= htmlspecialchars($product['product_name']) ?>"
+                    class="product-image" />
+                  <h3 class="product-title"><?= htmlspecialchars($product['product_name']) ?></h3>
+                  <p class="product-price"><?= formatPrc($product['price']) ?></p>
+                  <button class="favorite-button" aria-label="Add to favorites">
+                    <img src="https://c.animaapp.com/m9e8fd6qsdWEoD/img/vector.svg" alt="" />
+                  </button>
+                </div>
+              <?php endforeach; ?>
+            <?php else: ?>
+              <p>Нет товаров для отображения</p>
+            <?php endif; ?>
           </div>
         </div>
       </section>
@@ -87,6 +109,7 @@
           src="https://c.animaapp.com/m9e8fd6qsdWEoD/img/womanwatch-1.png"
           alt="Women's watch collection"
           class="category-image" />
+
         <div class="product-grid">
           <div class="product-card">
             <img
@@ -100,6 +123,7 @@
             </button>
           </div>
         </div>
+
       </section>
     </main>
     <footer>

@@ -1,0 +1,46 @@
+@media (max-width: 768px) {
+    .header,
+    .main-nav,
+    .footer-content {
+      flex-direction: column;
+      align-items: center;
+    }
+  
+    .user-actions {
+      margin-top: 20px;
+    }
+  
+    .secondary-nav ul {
+      flex-direction: column;
+      align-items: center;
+    }
+  
+    .secondary-nav li {
+      margin-bottom: 10px;
+    }
+  
+    .product-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+  
+  @media (max-width: 1280px){
+    .logo{
+      width: 200px;
+      height: auto;
+    }
+    .product-card{
+        width: 180px;
+        height: 200px;
+    }
+
+    .category-image{
+        width: 500px;
+        height: 500px;
+    }
+    .product-grid{
+        width: 500px;
+        height: 500px;
+    }
+  }
+  

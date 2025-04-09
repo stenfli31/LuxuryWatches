@@ -1,3 +1,9 @@
+.admin{
+  position: absolute;
+  top: 20px;
+  left: 20px;
+}
+
 .frame {
   background-color: #faf9f6;
   display: flex;
@@ -16,8 +22,8 @@
 
 .frame .logo {
  
-  width: 271px;
-  height: 137px;
+  width: 400px;
+  height: auto;
 }
 
 .frame .person-circle {
@@ -76,156 +82,7 @@
  
 }
 
-.frame .line {
-  width: 234px;
-  top: 27px;
-  position: absolute;
-  height: 1px;
-  left: 0;
-  object-fit: cover;
-}
 
-
-
-
-
-
-.frame .overlap-group {
-  position: relative;
-  width: 1920px;
-  height: 33px;
-  background-color: #cba135;
-}
-
-
-
-.frame .overlap-group-2 {
-  position: relative;
-  width: 696px;
-  height: 835px;
-}
-
-.frame .component-2 {
-  top: 6px;
-  left: 1231px;
-  position: absolute;
-  width: 290px;
-  height: 290px;
-}
-
-.frame .component-3 {
-  top: 835px;
-  left: 411px;
-  position: absolute;
-  width: 290px;
-  height: 290px;
-}
-
-.frame .component-4 {
-  top: 390px;
-  left: 820px;
-  position: absolute;
-  width: 290px;
-  height: 290px;
-}
-
-.frame .component-5 {
-  top: 1220px;
-  left: 0;
-  position: absolute;
-  width: 290px;
-  height: 290px;
-}
-
-.frame .component-6 {
-  top: 391px;
-  left: 1225px;
-  position: absolute;
-  width: 290px;
-  height: 290px;
-}
-
-.frame .component-7 {
-  top: 1220px;
-  left: 405px;
-  position: absolute;
-  width: 290px;
-  height: 290px;
-}
-
-.frame .group-4 {
-  position: absolute;
-  width: 1529px;
-  height: 411px;
-  top: 1207px;
-  left: 200px;
-}
-
-.frame .overlap-3 {
-  position: relative;
-  width: 1527px;
-  height: 411px;
-  background-color: #7a5c25;
-  border-radius: 10px;
-}
-
-.frame .text-wrapper-20 {
-  height: 29px;
-  top: 13px;
-  left: 640px;
-  font-family: "Inter", Helvetica;
-  font-weight: 300;
-  color: #faf9f6;
-  font-size: 24px;
-  position: absolute;
-  text-align: center;
-  letter-spacing: 0;
-  line-height: normal;
-}
-
-.frame .group-5 {
-  position: absolute;
-  width: 1403px;
-  height: 291px;
-  top: 83px;
-  left: 59px;
-}
-
-.frame .component-8 {
-  position: absolute;
-  width: 290px;
-  height: 290px;
-  top: 0;
-  left: 0;
-  border-radius: 10px;
-}
-
-.frame .component-9 {
-  top: 1px;
-  left: 371px;
-  border-radius: 10px;
-  position: absolute;
-  width: 290px;
-  height: 290px;
-}
-
-.frame .component-10 {
-  top: 0;
-  left: 742px;
-  border-radius: 10px;
-  position: absolute;
-  width: 290px;
-  height: 290px;
-}
-
-.frame .component-11 {
-  top: 0;
-  left: 1113px;
-  border-radius: 10px;
-  position: absolute;
-  width: 290px;
-  height: 290px;
-}
 /* Inject original CSS here */
 
 /* Header styles */
@@ -353,22 +210,34 @@
   margin: 0 auto;
 }
 
-/* Popular models and Women's watches sections */
-.popular-models,
-.women-watches {
-  padding: 50px 0;
+.watch-category{
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  height: 750px;
 }
 
-.popular-models {
-  background-color: #7a5c25;
-  color: #faf9f6;
+.img-container{
+  width: 100%;
+  height: 750px;
+  justify-content: flex-end;
+  display: flex;
+}
+
+.category-image{
+  width: 750px;
+  height: 750px;
 }
 
 .product-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  gap: 20px;
-  padding: 20px;
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: repeat(2, 1fr);
+  width: 750px;
+  
+
+  max-width: 1200px;
+  align-items: stretch;
+
 }
 
 .product-card {
@@ -378,6 +247,7 @@
   text-align: center;
   position: relative;
   width: 300px;
+  height: 330px;
 }
 
 .product-image {
@@ -446,31 +316,6 @@ footer {
 }
 
 /* Responsive design */
-@media (max-width: 768px) {
-  .header,
-  .main-nav,
-  .footer-content {
-    flex-direction: column;
-    align-items: center;
-  }
-
-  .user-actions {
-    margin-top: 20px;
-  }
-
-  .secondary-nav ul {
-    flex-direction: column;
-    align-items: center;
-  }
-
-  .secondary-nav li {
-    margin-bottom: 10px;
-  }
-
-  .product-grid {
-    grid-template-columns: 1fr;
-  }
-}
 
 hr{
   border: none;         /* Убираем стандартную границу */
