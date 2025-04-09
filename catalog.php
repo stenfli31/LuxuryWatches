@@ -22,8 +22,15 @@ $selectedBrands = $_GET['brand'] ?? [];
 
 if (!empty($selectedCategories) && is_array($selectedCategories)) {
     $escaped = array_map('intval', $selectedCategories);
-    $in = implode(",", $escaped);
-    $sql .= " AND product_category IN ($in)";
+    $inCat = implode(",", $escaped);
+    $sql .= " AND product_category IN ($inCat)";
+}
+
+
+if (!empty($selectedBrands) && is_array($selectedBrands)) {
+    $escaped = array_map('intval', $selectedBrands);
+    $inBrand = implode(",", $escaped);
+    $sql .= " AND brand IN ($inBrand)";
 }
 
 
@@ -101,7 +108,8 @@ $products = $stmt->fetchAll(PDO::FETCH_ASSOC);
                         <span><b>Пол:</b></span>
                         <div class="filter-cards">
                             <?php foreach ($categories as $cat): ?>
-                                <input type="checkbox" class="tag-check" id="<?= $cat['category_name'] ?>" name="category[]" value="<?= $cat['id'] ?>">
+                                <? $checkedCats = in_array($cat['id'], $selectedCategories) ? 'checked' : ' '; ?>
+                                <input type="checkbox" class="tag-check" id="<?= $cat['category_name'] ?>" name="category[]" value="<?= $cat['id'] ?>" <?=$checkedCats?>>
                                 <label class="tag-label" for="<?= $cat['category_name'] ?>"><?= $cat['category_name'] ?></label>
                             <?php endforeach ?>
                         </div>
@@ -109,10 +117,11 @@ $products = $stmt->fetchAll(PDO::FETCH_ASSOC);
                     <div class="filter-category">
                         <span><b>Бренд:</b></span>
                         <div class="filter-cards">
-                            <?php foreach ($brands as $brand): ?>
-                                <input type="checkbox" class="tag-check" id="<?= $brand['brand'] ?>" name="brand[]" value="<?= $brand['id'] ?>">
+                        <?php foreach ($brands as $brand): ?>
+                                <? $checkedBrand = in_array($brand['id'], $selectedBrands) ? 'checked' : ' '; ?>
+                                <input type="checkbox" class="tag-check" id="<?= $brand['brand'] ?>" name="brand[]" value="<?= $brand['id'] ?>" <?=$checkedBrand?>>
                                 <label class="tag-label" for="<?= $brand['brand'] ?>"><?= $brand['brand'] ?></label>
-                            <? endforeach ?>
+                            <?php endforeach ?>
                         </div>
                     </div>
                     <div class="d-flex justify-content-end">

@@ -279,9 +279,10 @@
   text-align: center;
   position:relative;
   width: 270px;
-  height: 290px;
+  height: 300px;
   display: flex;
   flex-direction: column;
+  gap: 10px;
   align-items: center;
   overflow: hidden;
   transition: 0.1s;
@@ -294,7 +295,7 @@
 }
 
 .product-image {
-  width: 200px;
+  width: auto;
   height: 200px;
   object-fit: cover;
   margin-bottom: 10px;
@@ -302,8 +303,6 @@
 
 .add-to-cart{
   position: relative;
-  bottom: 3px;
-  right: 5px;
   background-color:#CBA135;
   color: #FAF9F6;
   border-radius: 12px;
@@ -319,6 +318,7 @@
   font-family: "Inter", Helvetica;
   font-size: 14px;
   color: #2b2b2b;
+  height: 12px;
 }
 
 .favorite-button {
@@ -392,7 +392,7 @@ footer {
 
   display: grid;
   grid-template-columns: repeat(4, 290px);
-  grid-template-rows: repeat(8, 310px);
+  grid-template-rows: repeat(6, 310px);
   gap: 10px;
 }
 

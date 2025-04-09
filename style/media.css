@@ -17,12 +17,12 @@
    }
   .product-card{
       width: 200px;
-      height: 250px;
+      height: 260px;
       overflow: hidden;
   }
 
   .product-card:hover{
-    height: 290px;
+    height: 310px;
    
     z-index: 3;
   }
@@ -36,9 +36,16 @@
       height: 500px;  
   }
   .product-image{
-    width: 170px;
-    height: auto;
+    width: auto;
+    height: 170px;
   }
+
+  .add-to-cart{
+    height: 50px;
+  
+    margin-top: 0px;
+  }
+
   .catalog-grid{
   grid-template-columns: repeat(4, 210px);
   grid-template-rows: repeat(8, 260px);
