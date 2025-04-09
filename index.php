@@ -12,7 +12,7 @@
 
 <body>
   <div class="frame">
-  <?php include 'db.php'; ?>
+    <?php include 'db.php'; ?>
     <?php include 'header.php'; ?>
 
     <main>
@@ -30,7 +30,7 @@
           и непревзойденную элегантность.
         </p>
       </section>
-      <section class="section-slider">
+      <section class="section-slider mb-5">
         <div class="container mt-5">
           <div id="myCarousel" class="carousel slide" data-bs-ride="carousel" data-bs-interval="3000">
 
@@ -59,8 +59,14 @@
           </div>
         </div>
       </section>
-      <!-- <section class="popular-models">
-        <h2>Популярные модели</h2>
+
+
+      <section class="watch-category-photo">
+
+        <img
+          src="./images/manWatch.png"
+          alt="Man's watch collection"
+          class="category-image" />
         <div class="product-grid">
           <div class="product-card">
             <img
@@ -73,10 +79,8 @@
               <img src="https://c.animaapp.com/m9e8fd6qsdWEoD/img/vector.svg" alt="" />
             </button>
           </div>
-
-
         </div>
-      </section> -->
+      </section>
       <section class="women-watches">
         <h2>ЖЕНСКИЕ ЧАСЫ</h2>
         <img
@@ -84,7 +88,7 @@
           alt="Women's watch collection"
           class="category-image" />
         <div class="product-grid">
-        <div class="product-card">
+          <div class="product-card">
             <img
               src="https://c.animaapp.com/m9e8fd6qsdWEoD/img/tissot-t-classic-13.png"
               alt="Tissot T-Classic"
