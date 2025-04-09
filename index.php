@@ -5,6 +5,7 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>LuxuryWatches - Время в своем лучшем проявлении</title>
+  
   <link rel="stylesheet" href="./style/global.css" />
   <link rel="stylesheet" href="./style/style.css" />
   <link rel="stylesheet" href="./style/media.css" />
@@ -32,34 +33,34 @@
         </p>
       </section>
       <section class="section-slider mb-5">
-        <div class="container mt-5 d-flex justify-content-center">
-          <div id="myCarousel" class="carousel slide" style="width: 1920px;" data-bs-ride="carousel" data-bs-interval="3000">
 
-            <!-- Точки (индикаторы) -->
-            <div class="carousel-indicators">
-              <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="0" class="active" aria-current="true"></button>
-              <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="1"></button>
-              <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="2"></button>
-            </div>
+        <div id="myCarousel" class="carousel slide" data-bs-ride="carousel" data-bs-interval="3000">
 
-            <!-- Слайды -->
-            <div class="carousel-inner" style="height: 400px; ">
-              <div class="carousel-item active">
-                <img src="./images/promoSlide.jpg" class="d-block w-100" alt="Слайд 1">
-              </div>
-              <div class="carousel-item">
-                <img src="./images/videoframe_110.png" class="d-block w-100" alt="Слайд 2">
-              </div>
-              <div class="carousel-item">
-                <img src="./images/promoSlide.jpg" class="d-block w-100" alt="Слайд 3">
-              </div>
-            </div>
-
-
-
+      
+          <div class="carousel-indicators">
+            <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="0" class="active" aria-current="true"></button>
+            <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="1"></button>
+            <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="2"></button>
           </div>
+
+          
+          <div class="carousel-inner" style="height: 400px; ">
+            <div class="carousel-item active">
+              <img src="./images/promoSlide.jpg" class="d-block w-100" alt="Слайд 1">
+            </div>
+            <div class="carousel-item">
+              <img src="./images/videoframe_110.png" class="d-block w-100" alt="Слайд 2">
+            </div>
+            <div class="carousel-item">
+              <img src="./images/promoSlide.jpg" class="d-block w-100" alt="Слайд 3">
+            </div>
+          </div>
+
+
+
         </div>
-      </section>
+  </div>
+  </section>
 
       <?php
       $stmt = $pdo->query("SELECT * FROM products LIMIT 4");
@@ -70,17 +71,13 @@
       }
       ?>
 
-      <section class="watch-category">
-        <div class="img-container">
-          <img
-            src="./images/manWatch.png"
-            alt="Man's watch collection"
-            class="category-image p-3" />
+      <section class="watch-category2">
+        <div style="width: 50%; justify-content:center;" class="d-flex">
+          <img src="./images/manWatch.png" alt="" class="category-image">
         </div>
-        <div class="d-flex  justify-content-start ">
-          <div class="product-grid p-3 ">
-
-            <?php
+        <div style="width: 50%;">
+          <div class="grid ">
+          <?php
             $img_path = "./images/";
             if (!empty($products)):
               foreach ($products as $product): ?>
@@ -93,7 +90,7 @@
                   <h3 class="product-title"><?= htmlspecialchars($product['product_name']) ?></h3>
                   <p class="product-price"><?= formatPrc($product['price']) ?></p>
                   <button class="favorite-button" aria-label="Add to favorites">
-                    <img src="https://c.animaapp.com/m9e8fd6qsdWEoD/img/vector.svg" alt="" />
+                    <img src="./images/icons/heart.svg" alt="" class="heart" data-hover="./images/icons/heart-fill.svg" />
                   </button>
                 </div>
               <?php endforeach; ?>
@@ -103,28 +100,44 @@
           </div>
         </div>
       </section>
-      <section class="women-watches">
-        <h2>ЖЕНСКИЕ ЧАСЫ</h2>
-        <img
-          src="https://c.animaapp.com/m9e8fd6qsdWEoD/img/womanwatch-1.png"
-          alt="Women's watch collection"
-          class="category-image" />
 
-        <div class="product-grid">
-          <div class="product-card">
-            <img
-              src="https://c.animaapp.com/m9e8fd6qsdWEoD/img/tissot-t-classic-13.png"
-              alt="Tissot T-Classic"
-              class="product-image" />
-            <h3 class="product-title">Tissot T-Classic</h3>
-            <p class="product-price">484 000 ₸</p>
-            <button class="favorite-button" aria-label="Add to favorites">
-              <img src="https://c.animaapp.com/m9e8fd6qsdWEoD/img/vector.svg" alt="" />
-            </button>
+      <section class="watch-category">
+
+        <div class="d-flex  justify-content-start ">
+          <div class="product-grid p-3 ">
+
+            <?php
+            $img_path = "./images/";
+            if (!empty($products)):
+              foreach ($products as $product): ?>
+               
+               <div class="product-card">
+
+                  <img
+                    src="<?= $img_path . $product['product_img'] ?>"
+                    alt="<?= htmlspecialchars($product['product_name']) ?>"
+                    class="product-image" />
+                  <h3 class="product-title"><?= htmlspecialchars($product['product_name']) ?></h3>
+                  <p class="product-price"><?= formatPrc($product['price']) ?></p>
+                  <button class="favorite-button" aria-label="Add to favorites">
+                    <img src="./images/icons/heart.svg" alt="" class="heart" data-hover="./images/icons/heart-fill.svg" />
+                  </button>
+                  <button class="add-to-cart">В корзину</button>
+                </div>
+              <?php endforeach; ?>
+            <?php else: ?>
+              <p>Нет товаров для отображения</p>
+            <?php endif; ?>
           </div>
         </div>
-
+        <div class="img-container">
+          <img
+            src="./images/womanWatch.png"
+            alt="Man's watch collection"
+            class="category-image p-3" />
+        </div>
       </section>
+
     </main>
     <footer>
       <div class="footer-content">
@@ -156,6 +169,7 @@
     </footer>
   </div>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="./JS/main.js"></script>
 </body>
 
 </html>
