@@ -132,6 +132,14 @@
   left: 0;
 }
 
+.frame .section-slider{
+  height: 400px;
+  width: auto;
+  overflow: hidden;
+}
+
+
+
 .frame .overlap-group-wrapper {
   position: absolute;
   width: 1928px;
