@@ -1,4 +1,8 @@
 <!DOCTYPE html>
+<?php session_start();
+echo $_SESSION['username'] . ' ' . $_SESSION['user_status'];
+?>
+
 <html lang="en">
 
 <head>
@@ -14,10 +18,13 @@
 </head>
 
 <body>
+
   <div class="frame">
     <?php require_once 'db.php'; ?>
     <?php include 'header.php'; ?>
-    <a href="bdForm.php" class="btn btn-primary admin">Backrooms</a>
+  
+    <? if (isset($_SESSION['user_status']) && $_SESSION['user_status'] == '1')
+    echo "<a href='bdForm.php' class='btn btn-primary admin'>Backrooms</a>" ?>
     <main>
       <section class="hero">
         <video class="hero-video" autoplay loop muted>
@@ -26,7 +33,7 @@
         </video>
       </section>
 
-    
+
 
 
   <section class="intro">

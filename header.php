@@ -24,9 +24,10 @@
             <button class="action-button" aria-label="Shopping bag">
               <img class="bag" src="./images/icons/bag.svg" alt="" />
             </button>
-            <button class="action-button" aria-label="User account">
+            <a href="auth.php"><button class="action-button" aria-label="User account">
               <img class="person-circle" src="./images/icons//person-circle.svg" alt="" />
             </button>
+            </a>
           </div>
           </div>
         </nav>

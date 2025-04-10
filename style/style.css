@@ -4,6 +4,10 @@
   left: 10px;
 }
 
+body{
+  background-color: #faf9f6;
+}
+
 .frame {
   background-color: #faf9f6;
   display: flex;
@@ -456,3 +460,4 @@ footer {
   width: 85px;
   text-align: center;
 }
+

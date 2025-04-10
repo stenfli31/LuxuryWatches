@@ -1,6 +1,10 @@
 <!DOCTYPE html>
+<?php session_start();
+echo $_SESSION['username'] . ' ' . $_SESSION['user_status'];
+?>
 <?php
 require_once 'db.php';
+
 function formatPrc($price)
 {
     return number_format($price, 0, ".", " ") . ' ₸';
