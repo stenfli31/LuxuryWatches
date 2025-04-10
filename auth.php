@@ -3,7 +3,9 @@
 <?php 
 session_start();
 echo $_SESSION['username'] . ' ' . $_SESSION['user_status'];
-
+if(isset($_SESSION['username'])){
+  header("Location: personalAccount.php");
+}
 require_once("db.php"); ?>
 
 
@@ -62,7 +64,7 @@ if (isset($_POST['login'])) {
     $password = $_POST['password'];
 
     // Проверка на существование пользователя с таким email
-    $stmt = $pdo->prepare("SELECT id, username, password, user_status FROM users WHERE email = ?");
+    $stmt = $pdo->prepare("SELECT id, username, email, password, user_status FROM users WHERE email = ?");
     $stmt->execute([$email]);
     $user = $stmt->fetch();
 
@@ -71,6 +73,7 @@ if (isset($_POST['login'])) {
         $_SESSION['user_id'] = $user['id'];
         $_SESSION['username'] = $user['username'];
         $_SESSION['user_status'] = $user['user_status'];
+        $_SESSION['email'] = $user['email'];
 
         header('Location: index.php'); // Перенаправление на главную страницу или панель пользователя
         exit;

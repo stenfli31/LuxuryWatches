@@ -21,8 +21,12 @@ $brands = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
 $selectedCategories = $_GET['category'] ?? [];
 $selectedBrands = $_GET['brand'] ?? [];
+$priceFrom = $_GET['priceFrom'] ?? [];
+$priceTo = $_GET['priceTo'] ?? [];
 
 
+$stmt = $pdo->query("SELECT MAX(price) as max_price, MIN(price) as min_price FROM products");
+$priceRange = $stmt->fetch(PDO::FETCH_ASSOC);
 
 if (!empty($selectedCategories) && is_array($selectedCategories)) {
     $escaped = array_map('intval', $selectedCategories);
@@ -37,6 +41,17 @@ if (!empty($selectedBrands) && is_array($selectedBrands)) {
     $sql .= " AND brand IN ($inBrand)";
 }
 
+if (!empty($priceFrom) or !empty($priceTo)) {
+    if(empty($priceFrom)){
+        $priceFrom = $priceRange['min_price'];
+    }
+    if(empty($priceTo)){
+        $priceTo = $priceRange['max_price'];
+    }
+$sql .= " AND price BETWEEN $priceFrom AND $priceTo ";
+
+}
+
 
 $NEW = " ORDER BY id DESC ";
 $ASC = " ORDER BY price ASC";
@@ -46,7 +61,6 @@ $DESC = " ORDER BY price DESC";
 
 
 $order = $_GET['sort'] ?? 'new';
-
 
 
 switch ($order) {
@@ -59,7 +73,6 @@ switch ($order) {
     case 'new':
         $sql .= $NEW;
         break;
-   
 }
 
 
@@ -93,7 +106,7 @@ $products = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
         <form method="GET" style="align-self: flex-end;" class="me-5">
             <label for="category" class="form-label">Сортировать : </label>
-            <select class="" id="sort" name="sort" onchange="onSortChange(this.value)" >
+            <select class="" id="sort" name="sort" onchange="onSortChange(this.value)">
                 <option value="new" <?= ($order === 'new') ? 'selected' : '' ?>> Новинки </option>
                 <option value="desc" <?= ($order == 'desc') ? 'selected' : '' ?>> По убыванию цены </option>
                 <option value="asc" <?= ($order == 'asc') ? 'selected' : '' ?>> По возрастанию цены </option>
@@ -105,7 +118,18 @@ $products = $stmt->fetchAll(PDO::FETCH_ASSOC);
                 <form method="GET" class="card-body">
                     <div class="filter-category row">
                         <span><b>Ценовый диапазон</b></span>
-
+                        <div class="d-flex">
+                            <div class="d-flex flex-column align-items-center">
+                            <input type="number" min="<?= $priceRange['min_price'] ?>" max="<?= $priceRange['max_price'] ?>" class="form-control" id="priceFrom" name="priceFrom"
+                            placeholder="<?= $priceRange['min_price'] ?>">
+                            <label for="priceFrom">От:</label>
+                            </div>
+                            <div class="d-flex flex-column align-items-center">
+                            <input type="number" min="<?= $priceRange['min_price'] ?>" max="<?= $priceRange['max_price'] ?>" class="form-control" id="priceTo" name="priceTo"
+                            placeholder="<?= $priceRange['max_price'] ?>"   >
+                            <label for="priceTo">До:</label>
+                            </div>
+                        </div>
                     </div>
                     <div class="filter-category ">
 
@@ -113,7 +137,7 @@ $products = $stmt->fetchAll(PDO::FETCH_ASSOC);
                         <div class="filter-cards">
                             <?php foreach ($categories as $cat): ?>
                                 <? $checkedCats = in_array($cat['id'], $selectedCategories) ? 'checked' : ' '; ?>
-                                <input type="checkbox" class="tag-check" id="<?= $cat['category_name'] ?>" name="category[]" value="<?= $cat['id'] ?>" <?=$checkedCats?>>
+                                <input type="checkbox" class="tag-check" id="<?= $cat['category_name'] ?>" name="category[]" value="<?= $cat['id'] ?>" <?= $checkedCats ?>>
                                 <label class="tag-label" for="<?= $cat['category_name'] ?>"><?= $cat['category_name'] ?></label>
                             <?php endforeach ?>
                         </div>
@@ -121,9 +145,9 @@ $products = $stmt->fetchAll(PDO::FETCH_ASSOC);
                     <div class="filter-category">
                         <span><b>Бренд:</b></span>
                         <div class="filter-cards">
-                        <?php foreach ($brands as $brand): ?>
+                            <?php foreach ($brands as $brand): ?>
                                 <? $checkedBrand = in_array($brand['id'], $selectedBrands) ? 'checked' : ' '; ?>
-                                <input type="checkbox" class="tag-check" id="<?= $brand['brand'] ?>" name="brand[]" value="<?= $brand['id'] ?>" <?=$checkedBrand?>>
+                                <input type="checkbox" class="tag-check" id="<?= $brand['brand'] ?>" name="brand[]" value="<?= $brand['id'] ?>" <?= $checkedBrand ?>>
                                 <label class="tag-label" for="<?= $brand['brand'] ?>"><?= $brand['brand'] ?></label>
                             <?php endforeach ?>
                         </div>
@@ -164,7 +188,7 @@ $products = $stmt->fetchAll(PDO::FETCH_ASSOC);
     </div>
     <script src="./JS/main.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-    
+
 </body>
 
 </html>
