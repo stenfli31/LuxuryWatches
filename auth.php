@@ -25,7 +25,47 @@ require_once("db.php"); ?>
 
 <body>
 
+<style>
+     .card-header-tabs, .nav-link.active{
+  border-bottom: 2px solid white;
+  background-color: #e9ecef;
+}
+
+.nav-tabs{
+    border-bottom: none !important;
+}
+
+.tab-pane{
+  padding-top: 1rem;
+}
+
+.card-header{
+    background-color: white !important;
+    border: none !important ; 
+}
+
+.border-body{
+    border: 1px solid #e1e1e1;
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+    border-top-right-radius: 5px;
+    border-top-left-radius: 5px;
+    margin-top: 0px !important;
+}
+
+.nav-item{
+    border-bottom: white;
+    margin-bottom: 0px;
+}
+
+.nav-item:hover{
+    border-bottom: white !important;
+}
+
+</style>
+
 <?php 
+
 
 
 // Обработка регистрации
@@ -87,48 +127,9 @@ if (isset($_POST['login'])) {
 
 ?>
 
- 
+<?php include "header.php" ?> 
 
-<style>
-     .card-header-tabs, .nav-link.active{
-  border-bottom: 2px solid white;
-  background-color: #e9ecef;
-}
 
-.nav-tabs{
-    border-bottom: none !important;
-}
-
-.tab-pane{
-  padding-top: 1rem;
-}
-
-.card-header{
-    background-color: white !important;
-    border: none !important ; 
-}
-
-.border-body{
-    border: 1px solid #e1e1e1;
-    border-bottom-left-radius: 5px;
-    border-bottom-right-radius: 5px;
-    border-top-right-radius: 5px;
-    border-top-left-radius: 5px;
-    margin-top: 0px !important;
-}
-
-.nav-item{
-    border-bottom: white;
-    margin-bottom: 0px;
-}
-
-.nav-item:hover{
-    border-bottom: white !important;
-}
-
-</style>
-
-<a href="index.php"><button type="button" class="btn btn-primary">Вернуться на главную</button></a>
 <?php 
 if(!empty($message)): ?>
 
@@ -142,7 +143,7 @@ if(!empty($message)): ?>
         <div class="alert alert-success"><?= $_SESSION['success_message']; unset($_SESSION['success_message']); ?></div>
     <?php endif; ?>
 
-<div class="auth">
+<div class="auth mb-5 " style="height: 350px">
     <div class="container mt-5 col-4 ">
   <ul class="nav nav-tabs  ms-5" id="authTab" role="tablist">
     <li class="nav-item" role="presentation">
@@ -153,7 +154,7 @@ if(!empty($message)): ?>
     </li>
   </ul>
 
-  <div class="tab-content mt-3 border-body d-flex justify-content-center">
+  <div class="tab-content mt-5 border-body d-flex justify-content-center">
     <!-- Вход -->
     <div class="tab-pane fade show active col-10" id="login" role="tabpanel">
       <form method="post" action="auth.php" class="d-flex flex-column">
@@ -190,6 +191,8 @@ if(!empty($message)): ?>
   </div>
 </div>
 </div>
+<? include "footer.html" ?>
+
     <script src="./JS/main.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 </body>

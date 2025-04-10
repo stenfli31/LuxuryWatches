@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<?php session_start();?>
+<?php session_start(); ?>
 <?php
 require_once 'db.php';
 
@@ -51,10 +51,9 @@ if (!empty($priceFrom) or !empty($priceTo)) {
     $sql .= " AND price BETWEEN $priceFrom AND $priceTo ";
 }
 
-if(!empty($search)){
-$search = "'%". $search ."%'";
+if (!empty($search)) {
+    $search = "'%" . $search . "%'";
     $sql .= " AND product_name LIKE $search ";
-    
 }
 $NEW = " ORDER BY id DESC ";
 $ASC = " ORDER BY price ASC";
@@ -159,7 +158,7 @@ $products = $stmt->fetchAll(PDO::FETCH_ASSOC);
                         </div>
                     </div>
                     <div class="d-flex justify-content-end">
-                    <button type="button" class="btn btn-primary rounded-1" style="background-color: #7a5c25; border-color: #7a5c25;" onclick="resetCheckedCheckboxes()">Сбросить</button>
+                        <button type="button" class="btn btn-primary rounded-1" style="background-color: #7a5c25; border-color: #7a5c25;" onclick="resetCheckedCheckboxes()">Сбросить</button>
                         <button type="submit" class="btn btn-primary rounded-1 ms-3" style="background-color: #CBA135; border-color: #CBA135;">Применить</button>
                     </div>
                 </form>
@@ -182,7 +181,11 @@ $products = $stmt->fetchAll(PDO::FETCH_ASSOC);
                                 <button class="favorite-button" aria-label="Add to favorites">
                                     <img src="./images/icons/heart.svg" alt="" class="heart" data-hover="./images/icons/heart-fill.svg" />
                                 </button>
-                                <button class="add-to-cart">В корзину</button>
+                             
+                                <form method="POST" action="shop-cart.php" style="width: 100%;">
+                                    <button type="submit" name="add_to_cart" value="<?= $product['id'] ?>" class="add-to-cart">В корзину</button>
+                                </form>
+
                             </div>
                         <?php endforeach; ?>
                     <?php else: ?>
