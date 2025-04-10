@@ -1,6 +1,9 @@
 @media (max-width: 1280px){
+  .header {
+    height: 250px;
+  }
   .logo{
-    width: 800px;
+    width: 350px;
   }
   .product-card{
       width: 200px;
@@ -10,6 +13,8 @@
 
   .product-card:hover{
     height: 290px;
+   
+    z-index: 3;
   }
 
   .category-image{
@@ -25,7 +30,8 @@
     height: auto;
   }
   .catalog-grid{
-  grid-template-columns: repeat(4, auto);
+  grid-template-columns: repeat(4, 210px);
+  grid-template-rows: repeat(8, 260px);
   }
 }
 

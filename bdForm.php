@@ -65,7 +65,7 @@ $brands = $stmt->fetchAll(PDO::FETCH_ASSOC);
             </select>
         </div>
         <div class="mb-3 row">
-            <label for="category"class="form-label">Категория</label>
+            <label for="category"class="form-label">Бренд</label>
             <select type="text" class="form-control" id="brand" name="brand" required>
                 <option value=""> Выберите бренд </option>
                 <?php foreach ($brands as $brand ): ?>

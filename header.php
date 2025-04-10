@@ -38,5 +38,5 @@
           <li><a href="#warranty">Гарантия</a></li>
         </ul>
       </nav>
-      
+      <hr class="hr">
       </header>

@@ -6,6 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>LuxuryWatches - Время в своем лучшем проявлении</title>
   
+  <link rel="shortcut icon" href="./images/favicon.png" type="image/x-icon">
   <link rel="stylesheet" href="./style/global.css" />
   <link rel="stylesheet" href="./style/style.css" />
   <link rel="stylesheet" href="./style/media.css" />
@@ -16,7 +17,7 @@
   <div class="frame">
     <?php require_once 'db.php'; ?>
     <?php include 'header.php'; ?>
-    <a href="bdForm.php" class="btn btn-primary admin">Админ</a>
+    <a href="bdForm.php" class="btn btn-primary admin">Backrooms</a>
     <main>
       <section class="hero">
         <video class="hero-video" autoplay loop muted>
@@ -139,34 +140,7 @@
       </section>
 
     </main>
-    <footer>
-      <div class="footer-content">
-        <div class="footer-section">
-          <h3>Навигация</h3>
-          <ul>
-            <li><a href="#">Главная</a></li>
-            <li><a href="#">Каталог</a></li>
-            <li><a href="#">О нас</a></li>
-            <li><a href="#">Личный кабинет</a></li>
-          </ul>
-        </div>
-        <div class="footer-section">
-          <h3>Контакты</h3>
-          <p>Телефон: 8800553535</p>
-          <p>Email: luxury@watches.co</p>
-          <p>Адрес: Улица Гоголя 120</p>
-        </div>
-        <div class="footer-section">
-          <img
-            class="logo-footer"
-            src="https://c.animaapp.com/m9e8fd6qsdWEoD/img/logo-2.png"
-            alt="LuxuryWatches logo" />
-        </div>
-      </div>
-      <div class="copyright">
-        <p>Все права защищены © LuxuryWatches™ 2025</p>
-      </div>
-    </footer>
+  <?php include "footer.html" ?>
   </div>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
   <script src="./JS/main.js"></script>

@@ -92,7 +92,7 @@
 .header {
   display: flex;
   flex-direction: column;
-  height: 150px;
+  height: 250px;
   
   width: 100%;
 }
@@ -244,7 +244,8 @@
 .product-grid {
   width: 100%;
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
+  grid-template-columns: repeat(2, auto);
+  grid-template-rows: repeat(2, auto);
   gap:30px;
   height: 100%;
   align-content: start;
@@ -265,13 +266,18 @@
   border-radius: 20px;
   padding: 20px;
   text-align: center;
-  position: relative;
-  width: 280px;
-  height: 300px;
+  position:relative;
+  width: 270px;
+  height: 290px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  overflow: hidden;
 }
 
 .product-card:hover{
   height: 320px;
+  z-index: 3;
 }
 
 .product-image {
@@ -282,7 +288,17 @@
 }
 
 .add-to-cart{
-  position: absolute;
+  position: relative;
+  bottom: 3px;
+  right: 5px;
+  background-color:#CBA135;
+  color: #FAF9F6;
+  border-radius: 5px;
+  border: 1px solid #e1e1e1;
+  height: 40px;
+  margin-top: 5px;
+  width: 80%;
+  
 }
 
 .product-title,
@@ -350,9 +366,9 @@ footer {
 
 /* Responsive design */
 
-hr{
+.hr{
   border: none;         /* Убираем стандартную границу */
-  border-top: 2px solid #ff9900;  /* Задаём цвет и толщину линии */
+  border-top: 2px solid #e1e1e1;  /* Задаём цвет и толщину линии */
 }
 
 .filter_catalog{
@@ -362,14 +378,28 @@ hr{
 .catalog-grid{
 
   display: grid;
-  grid-template-columns: repeat(5, auto);
-  grid-template-rows: repeat(8, auto);
+  grid-template-columns: repeat(4, 290px);
+  grid-template-rows: repeat(8, 310px);
   gap: 30px;
 }
 
+
+
 .filters{
-  background-color: #e1e1e1;
+  border: 1px solid #e1e1e1;
+  border-radius: 10px;
   width: 350px;
-  height: 900px;
+  height: 750px !important;
+  margin-top: 15px;
 }
 
+.card{
+  background-color: none !important;
+}
+
+.filter-category{
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+  justify-content: center;
+}
