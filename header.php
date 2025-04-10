@@ -42,7 +42,7 @@
         <nav class="secondary-nav">
         <ul>
           <li><a href="about-us.php">О нас</a></li>
-          <li><a href="#brands">Бренды</a></li>
+          <li><a href="brands.php">Бренды</a></li>
           <li><a href="#contacts">Контакты</a></li>
           <li><a href="#warranty">Гарантия</a></li>
         </ul>

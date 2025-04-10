@@ -2,6 +2,10 @@
 
 session_start();
 include 'db.php'; 
+if (!isset($_SESSION['user_id'])) {
+    header('Location: auth.php');
+    exit();
+}
 // Получить все избранные товары
 $path = "./images/";
 $stmt = $pdo->prepare("
@@ -11,6 +15,14 @@ $stmt = $pdo->prepare("
 ");
 $stmt->execute([$_SESSION['user_id']]);
 $favorites = $stmt->fetchAll();
+
+if($_SERVER["REQUEST_METHOD"]=="POST"){
+$favID = $_POST['product_id_fav'];
+$favID = $pdo->prepare("DELETE FROM favorites WHERE user_id = ? AND product_id = ?");
+$favID->execute([$_SESSION['user_id'], $favID]);
+header('Location: favourites.php');
+exit();
+}
 ?>
 
 
@@ -38,18 +50,21 @@ $favorites = $stmt->fetchAll();
        foreach ($favorites as $item): ?>
                 <div class="product-cart">
                     <form method="POST">
-                        <input type="hidden" name="delete_product_id_fav" value="<?= $item['id'] ?>">
-                        <button type="submit" class="btn p-0 border-0 bg-transparent">
+                        
+                        <button type="submit" class="btn p-0 border-0 bg-transparent" name="product_id_fav" value="<?= $item['id'] ?>">
                             <img src="./images/icons/delete.svg" alt="Удалить" class="delete ms-3 me-3">
                         </button>
                     </form>
                     <div class="img-container-cart">
                         <img src="<?=$path . $item['product_img']?>" alt="<?= htmlspecialchars($item['product_name']) ?>" class="cart-img">
                     </div>
-                    <div class="product-attributes">
+                    <div class="product-attributes-fav">
                         <span><b><?= htmlspecialchars($item['product_name']) ?></b></span>
                         <span class="price-cart"><?= number_format($item['price'], 0, ".", " ") ?> ₸</span>
                     </div>
+                    <form method="POST" action="shop-cart.php" style="width: 150px;" >
+                                    <button type="submit" name="add_to_cart" value="<?= $item['id'] ?>" class="add-to-cart">В корзину</button>
+                                </form>
                     
                 </div>
                 <hr class="cart-line">

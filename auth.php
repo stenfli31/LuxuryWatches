@@ -56,10 +56,19 @@ require_once("db.php"); ?>
 .nav-item{
     border-bottom: white;
     margin-bottom: 0px;
+    background-color: #faf9f6 !important;
+}
+
+.nav-link{
+  background-color: #faf9f6 !important;
 }
 
 .nav-item:hover{
-    border-bottom: white !important;
+    border-bottom: #faf9f6 !important;
+}
+
+.form-control{
+  background-color:rgba(240, 240, 240, 0.25) !important;
 }
 
 </style>

@@ -1,4 +1,9 @@
 RewriteEngine On
+
+# Удаление .php из URL
 RewriteCond %{REQUEST_FILENAME} !-d
-RewriteCond %{REQUEST_FILENAME} !-f
-RewriteRule ^([^/]+)$ $1.php [L]
+RewriteCond %{REQUEST_FILENAME}\.php -f
+RewriteRule ^(.*)$ $1.php [L]
+
+# Для корректной работы index.php по умолчанию
+DirectoryIndex index.php

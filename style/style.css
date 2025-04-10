@@ -145,6 +145,10 @@ body{
   background-color: #ffffff00;
   
 }
+.search-input:focus{
+  border: none;
+  border-bottom: 1px solid #7c7c7c;
+}
 
 .search-button {
   background: none;
@@ -286,7 +290,7 @@ body{
   height: 300px;
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 15px;
   align-items: center;
   overflow: hidden;
   transition: 0.1s;
@@ -312,8 +316,12 @@ body{
   border-radius: 12px;
   border: 1px solid #e1e1e1;
   height: 30px;
-  margin-top: 0px;
+  margin-top: -14px;
   width: 100%;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   
 }
 
@@ -322,7 +330,8 @@ body{
   font-family: "Inter", Helvetica;
   font-size: 14px;
   color: #2b2b2b;
-  height: 12px;
+  height: 14px;
+  
 }
 
 .favorite-button {
@@ -511,6 +520,15 @@ object-fit: cover;
   justify-content: center;
   gap: 35px;
   width: 180px;
+}
+
+.product-attributes-fav{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 35px;
+  width: 250px;
 }
 
 .input-cart-form{

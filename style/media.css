@@ -1,4 +1,4 @@
-@media (max-width: 1280px){
+@media (max-width: 1440px){
   .header {
     height: 250px;
   }
@@ -19,6 +19,10 @@
       width: 200px;
       height: 260px;
       overflow: hidden;
+      gap: 5px;
+  }
+  .product-title, .product-price{
+    margin-bottom: 14px;
   }
 
   .product-card:hover{
@@ -44,7 +48,7 @@
   }
 
   .add-to-cart{
-    height: 50px;
+    height: 35px;
   
     margin-top: 0px;
   }
@@ -93,7 +97,7 @@
   .product-card{
     width: 250px;
     height: 270px;
-    
+    gap: 8px;
 }
   .search-form{
     width: 30%;

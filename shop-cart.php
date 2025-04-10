@@ -120,7 +120,8 @@ $path = "./images/"
         <div class="confirm-main">
             <span><b>Итого: <?= number_format($total ?? 0, 0, ".", " ") ?> ₸</b></span>
         </div>
-        <button class="confirm-btn">Оформить заказ</button>
+        
+        <a href="order"><button class="confirm-btn">Оформить заказ</button></a>
     </div>
 </div>
 
