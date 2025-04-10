@@ -1,35 +1,55 @@
-<?php 
- require_once 'db.php'; 
+<?php
+require_once 'db.php';
 function formatPrc($price)
 {
     return number_format($price, 0, ".", " ") . ' ₸';
 }
+$sql = "SELECT * FROM products WHERE 1=1";
+$NEW = " ORDER BY id DESC ";
+$ASC = " ORDER BY price ASC";
+$DESC = " ORDER BY price DESC";
 
-$NEW = "SELECT * FROM Products ";
-$ASC = "SELECT * FROM Products ORDER BY price ASC";
-$DESC = "SELECT * FROM Products ORDER BY price DESC";
 
- $sort = isset($_GET["sort"]) ? $_GET["sort"] :"";
+
+$sort = isset($_GET["sort"]) ? $_GET["sort"] : "";
 $order = $_GET['sort'] ?? 'new';
 
-switch( $order ) {
-    case 'desc': 
-        $sql = $DESC;
+
+
+switch ($order) {
+    case 'desc':
+        $sql .= $DESC;
         break;
     case 'asc':
-        $sql = $ASC;
+        $sql .= $ASC;
         break;
     case 'new':
-        $sql = $NEW;
+        $sql .= $NEW;
         break;
     default:
-        $sql = $NEW;
-       break;
-
+        $sql .= $NEW;
+        break;
 }
 
-$stmt = $pdo ->query($sql);
+
+$stmt = $pdo->query("SELECT * FROM categories");
+$categories = $stmt->fetchAll(PDO::FETCH_ASSOC);
+$stmt = $pdo->query("SELECT * FROM brands");
+$brands = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+$selectedCategories = $_GET['category'] ?? [];
+$selectedBrands = $_GET['brand'] ?? [];
+
+
+
+if (!empty($selectedCategories) && is_array($selectedCategories)) {
+    $escaped = array_map('intval', $selectedCategories);
+    $in = implode(",", $escaped);
+    $sql .= " AND product_category IN ($in)";
+}
+$stmt = $pdo->query($sql);
 $products = $stmt->fetchAll(PDO::FETCH_ASSOC);
+echo $sql;
 
 ?>
 
@@ -50,26 +70,46 @@ $products = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
 <body>
     <div class="frame">
-        
+
         <?php include 'header.php'; ?>
-        
-         <form method="GET"  style="align-self: flex-end;" class="me-5">
-            <label for="category"class="form-label">Сортировать : </label>
-            <select  class="" id="sort" name="sort"  onchange="this.form.submit()" required>
-                <option value="new" <?=$sort == 'new' ? 'selected' : '' ?>> Новинки </option>
-                <option value="desc" <?=$sort == 'desc' ? 'selected' : '' ?> > По убыванию цены </option>
-                <option value="asc" <?=$sort == 'asc' ? 'selected' : '' ?> > По возрастанию цены </option>
+
+        <form method="GET" style="align-self: flex-end;" class="me-5">
+            <label for="category" class="form-label">Сортировать : </label>
+            <select class="" id="sort" name="sort" onchange="this.form.submit()" required>
+                <option value="new" <?= $sort == 'new' ? 'selected' : '' ?>> Новинки </option>
+                <option value="desc" <?= $sort == 'desc' ? 'selected' : '' ?>> По убыванию цены </option>
+                <option value="asc" <?= $sort == 'asc' ? 'selected' : '' ?>> По возрастанию цены </option>
             </select>
         </form>
         <div class="filter_catalog text-center ms-4">
             <div class="filters card">
                 <div class="card-header" style="background-color: none;"><b>Подбор товара</b></div>
-                <form  method="POST"  class="card-body">
+                <form method="GET" class="card-body">
                     <div class="filter-category row">
                         <span><b>Ценовый диапазон</b></span>
-                        <div class="d-flex">
-                        <input type="number" class="form-control" id="price" name="price">
+
+                    </div>
+                    <div class="filter-category ">
+
+                        <span><b>Пол:</b></span>
+                        <div class="filter-cards">
+                            <?php foreach ($categories as $cat): ?>
+                                <input type="checkbox" class="tag-check" id="<?= $cat['category_name'] ?>" name="category[]" value="<?= $cat['id'] ?>">
+                                <label class="tag-label" for="<?= $cat['category_name'] ?>"><?= $cat['category_name'] ?></label>
+                            <?php endforeach ?>
                         </div>
+                    </div>
+                    <div class="filter-category">
+                        <span><b>Бренд:</b></span>
+                        <div class="filter-cards">
+                            <?php foreach ($brands as $brand): ?>
+                                <input type="checkbox" class="tag-check" id="<?= $brand['brand'] ?>" name="brand[]" value="<?= $brand['id'] ?>">
+                                <label class="tag-label" for="<?= $brand['brand'] ?>"><?= $brand['brand'] ?></label>
+                            <? endforeach ?>
+                        </div>
+                    </div>
+                    <div class="d-flex justify-content-end">
+                        <button type="submit" class="btn btn-primary rounded-1">Применить</button>
                     </div>
                 </form>
             </div>
