@@ -2,7 +2,7 @@
  require_once 'db.php';
  
  session_start();
- echo $_SESSION['user_status'];
+ 
  // Проверяем, есть ли в сессии информация о статусе пользователя
  if (!isset($_SESSION['user_status']) || $_SESSION['user_status'] != 1)
  {
@@ -46,8 +46,9 @@ $brands = $stmt->fetchAll(PDO::FETCH_ASSOC);
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
+
+<a href="index.php" class="btn btn-primary admin mt-1 ms-2">Назад</a> 
 <? echo $_SESSION['username'] ;?>
-<a href="index.php" class="btn btn-primary admin">Назад</a> 
 
 <div class="container mt-5 card">
     <h2 class="mb-4">Добавление товара</h2>

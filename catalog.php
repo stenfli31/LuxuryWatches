@@ -1,7 +1,5 @@
 <!DOCTYPE html>
-<?php session_start();
-echo $_SESSION['username'] . ' ' . $_SESSION['user_status'];
-?>
+<?php session_start();?>
 <?php
 require_once 'db.php';
 
@@ -21,8 +19,10 @@ $brands = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
 $selectedCategories = $_GET['category'] ?? [];
 $selectedBrands = $_GET['brand'] ?? [];
-$priceFrom = $_GET['priceFrom'] ?? [];
-$priceTo = $_GET['priceTo'] ?? [];
+$priceFrom = $_GET['priceFrom'] ?? '';
+$priceTo = $_GET['priceTo'] ?? '';
+$search = $_GET['search'] ?? '';
+
 
 
 $stmt = $pdo->query("SELECT MAX(price) as max_price, MIN(price) as min_price FROM products");
@@ -42,17 +42,20 @@ if (!empty($selectedBrands) && is_array($selectedBrands)) {
 }
 
 if (!empty($priceFrom) or !empty($priceTo)) {
-    if(empty($priceFrom)){
+    if (empty($priceFrom)) {
         $priceFrom = $priceRange['min_price'];
     }
-    if(empty($priceTo)){
+    if (empty($priceTo)) {
         $priceTo = $priceRange['max_price'];
     }
-$sql .= " AND price BETWEEN $priceFrom AND $priceTo ";
-
+    $sql .= " AND price BETWEEN $priceFrom AND $priceTo ";
 }
 
-
+if(!empty($search)){
+$search = "'%". $search ."%'";
+    $sql .= " AND product_name LIKE $search ";
+    
+}
 $NEW = " ORDER BY id DESC ";
 $ASC = " ORDER BY price ASC";
 $DESC = " ORDER BY price DESC";
@@ -74,7 +77,6 @@ switch ($order) {
         $sql .= $NEW;
         break;
 }
-
 
 $queryParams = $_GET;
 $stmt = $pdo->query($sql);
@@ -104,7 +106,7 @@ $products = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
         <?php include 'header.php'; ?>
 
-        <form method="GET" style="align-self: flex-end;" class="me-5">
+        <form method="GET" style="align-self: flex-end;" class="me-5 mt-5">
             <label for="category" class="form-label">Сортировать : </label>
             <select class="" id="sort" name="sort" onchange="onSortChange(this.value)">
                 <option value="new" <?= ($order === 'new') ? 'selected' : '' ?>> Новинки </option>
@@ -112,28 +114,32 @@ $products = $stmt->fetchAll(PDO::FETCH_ASSOC);
                 <option value="asc" <?= ($order == 'asc') ? 'selected' : '' ?>> По возрастанию цены </option>
             </select>
         </form>
-        <div class="filter_catalog text-center ms-4">
+        <div class="filter_catalog text-center ms-4 ">
             <div class="filters card">
                 <div class="card-header" style="background-color: none;"><b>Подбор товара</b></div>
-                <form method="GET" class="card-body">
-                    <div class="filter-category row">
-                        <span><b>Ценовый диапазон</b></span>
-                        <div class="d-flex">
+                <form method="GET" class="card-body" id="filterForm">
+                    <div class="filter-category row mb-4">
+                        <span class="mb-2"><b>Ценовый диапазон</b></span>
+                        <div class="d-flex justify-content-around" id="priceRangeInp">
                             <div class="d-flex flex-column align-items-center">
-                            <input type="number" min="<?= $priceRange['min_price'] ?>" max="<?= $priceRange['max_price'] ?>" class="form-control" id="priceFrom" name="priceFrom"
-                            placeholder="<?= $priceRange['min_price'] ?>">
-                            <label for="priceFrom">От:</label>
+                                <? $priceFromValue = !empty($priceFrom) ? "value='$priceFrom'" : '' ?>
+                                <input type="number" min="<?= $priceRange['min_price'] ?>" max="<?= $priceRange['max_price'] ?>"
+                                    class="form-control " id="priceFrom" name="priceFrom" <?= $priceFromValue ?>
+                                    placeholder="<?= $priceRange['min_price'] ?> " oninput="setMask(event)">
+                                <label for="priceFrom">От:</label>
                             </div>
                             <div class="d-flex flex-column align-items-center">
-                            <input type="number" min="<?= $priceRange['min_price'] ?>" max="<?= $priceRange['max_price'] ?>" class="form-control" id="priceTo" name="priceTo"
-                            placeholder="<?= $priceRange['max_price'] ?>"   >
-                            <label for="priceTo">До:</label>
+                                <? $priceToValue = !empty($priceTo) ? "value='$priceTo'" : '' ?>
+                                <input type="number" min="<?= $priceRange['min_price'] ?>" max="<?= $priceRange['max_price'] ?>"
+                                    class="form-control" id="priceTo" name="priceTo" <?= $priceToValue ?>
+                                    placeholder="<?= $priceRange['max_price'] ?>">
+                                <label for="priceTo">До:</label>
                             </div>
                         </div>
                     </div>
-                    <div class="filter-category ">
+                    <div class="filter-category mb-4">
 
-                        <span><b>Пол:</b></span>
+                        <span class="mb-2"><b>Пол:</b></span>
                         <div class="filter-cards">
                             <?php foreach ($categories as $cat): ?>
                                 <? $checkedCats = in_array($cat['id'], $selectedCategories) ? 'checked' : ' '; ?>
@@ -142,8 +148,8 @@ $products = $stmt->fetchAll(PDO::FETCH_ASSOC);
                             <?php endforeach ?>
                         </div>
                     </div>
-                    <div class="filter-category">
-                        <span><b>Бренд:</b></span>
+                    <div class="filter-category mb-5">
+                        <span class="mb-2"><b>Бренд:</b></span>
                         <div class="filter-cards">
                             <?php foreach ($brands as $brand): ?>
                                 <? $checkedBrand = in_array($brand['id'], $selectedBrands) ? 'checked' : ' '; ?>
@@ -153,7 +159,8 @@ $products = $stmt->fetchAll(PDO::FETCH_ASSOC);
                         </div>
                     </div>
                     <div class="d-flex justify-content-end">
-                        <button type="submit" class="btn btn-primary rounded-1">Применить</button>
+                    <button type="button" class="btn btn-primary rounded-1" style="background-color: #7a5c25; border-color: #7a5c25;" onclick="resetCheckedCheckboxes()">Сбросить</button>
+                        <button type="submit" class="btn btn-primary rounded-1 ms-3" style="background-color: #CBA135; border-color: #CBA135;">Применить</button>
                     </div>
                 </form>
             </div>
@@ -179,7 +186,7 @@ $products = $stmt->fetchAll(PDO::FETCH_ASSOC);
                             </div>
                         <?php endforeach; ?>
                     <?php else: ?>
-                        <p>Нет товаров для отображения</p>
+                        <div class="text-center" style="width: 100%;">Нет товаров для отображения</div>
                     <?php endif; ?>
                 </div>
             </div>

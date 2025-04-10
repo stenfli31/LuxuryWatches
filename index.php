@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <?php session_start();
-echo $_SESSION['username'] . ' ' . $_SESSION['user_status'];
+
 ?>
 
 <html lang="en">
@@ -23,8 +23,7 @@ echo $_SESSION['username'] . ' ' . $_SESSION['user_status'];
     <?php require_once 'db.php'; ?>
     <?php include 'header.php'; ?>
   
-    <? if (isset($_SESSION['user_status']) && $_SESSION['user_status'] == '1')
-    echo "<a href='bdForm.php' class='btn btn-primary admin'>Backrooms</a>" ?>
+
     <main>
       <section class="hero">
         <video class="hero-video" autoplay loop muted>
@@ -38,7 +37,7 @@ echo $_SESSION['username'] . ' ' . $_SESSION['user_status'];
 
   <section class="intro">
     <h1>LuxuryWatches — Время в своем лучшем проявлении</h1>
-    <p>
+    <p style="width: 90%; text-align: center;">
       Добро пожаловать в LuxuryWatches — пространство, где стиль, точность и престиж соединяются в каждом тике. Мы
       предлагаем коллекцию эксклюзивных часов от ведущих мировых брендов — для тех, кто ценит безупречное качество
       и непревзойденную элегантность.
@@ -114,7 +113,7 @@ echo $_SESSION['username'] . ' ' . $_SESSION['user_status'];
     </div>
   </section>
 
-  <section class="section-slider mb-5">
+  <section class="section-slider">
 
         <div id="myCarousel" class="carousel slide" data-bs-ride="carousel" data-bs-interval="3000">
 

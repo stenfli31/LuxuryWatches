@@ -2,7 +2,8 @@
 
 <?php 
 session_start();
-echo $_SESSION['username'] . ' ' . $_SESSION['user_status'];
+
+
 if(isset($_SESSION['username'])){
   header("Location: personalAccount.php");
 }
@@ -127,6 +128,7 @@ if (isset($_POST['login'])) {
 
 </style>
 
+<a href="index.php"><button type="button" class="btn btn-primary">Вернуться на главную</button></a>
 <?php 
 if(!empty($message)): ?>
 

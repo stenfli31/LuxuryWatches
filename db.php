@@ -11,7 +11,8 @@ try {
     $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     
     if(basename($_SERVER["PHP_SELF"]) == "bdForm.php") {
-        echo "Подключение успешно!";}
+        // echo "<span>Подключение успешно!</span>";
+    }
 }
 catch (PDOException $e) {  
     die("Ошибка подключения: ". $e->getMessage());

@@ -343,7 +343,8 @@ body{
 footer {
   background-color: #a7842e;
   color: #ffffff;
-  padding: 50px 0;
+ padding-top: 35px;
+ padding-bottom: 3px;
 }
 
 .footer-content {
@@ -386,6 +387,7 @@ footer {
 .hr{
   border: none;         /* Убираем стандартную границу */
   border-top: 2px solid #e1e1e1;  /* Задаём цвет и толщину линии */
+  margin: 3px;
 }
 
 .filter_catalog{
@@ -406,7 +408,7 @@ footer {
   border: 1px solid #e1e1e1;
   border-radius: 10px;
   width: 450px;
-  height: 750px !important;
+  height: 565px !important;
   margin-top: 15px;
 }
 

@@ -25,7 +25,31 @@ function onSortChange(value) {
 
 
 
-console.log(typeof onSortChange);
 
 
 
+function setMask(event) {
+    let formattedValue = '';
+            for (let i = 0; i < value.length; i += 3) {
+                formattedValue += value.slice(i, i + 3) + ' ';
+            }
+
+            // Убираем последний пробел, если он есть
+            input.value = formattedValue.trim();
+    input.value = value;
+}
+
+function resetCheckedCheckboxes() {
+    // Получаем все чекбоксы
+    const checkboxes = document.querySelectorAll('.tag-check');
+    
+    // Проходим по чекбоксам и сбрасываем те, которые отмечены
+    checkboxes.forEach(function(checkbox) {
+        if (checkbox.checked) {
+            checkbox.checked = false; 
+             // Снимаем отметку
+        }
+    });
+    window.location.href = 'catalog.php';
+    document.getElementById('filterForm').submit();
+}
