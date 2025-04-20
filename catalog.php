@@ -7,10 +7,10 @@ function formatPrc($price)
 
 $NEW = "SELECT * FROM Products ";
 $ASC = "SELECT * FROM Products ORDER BY price ASC";
-$DESC = "SELECT * FROM Products ORDER BY price ASC";
+$DESC = "SELECT * FROM Products ORDER BY price DESC";
 
- 
-$order = $_GET['sort'] ;
+ $sort = isset($_GET["sort"]) ? $_GET["sort"] :"";
+$order = $_GET['sort'] ?? 'new';
 
 switch( $order ) {
     case 'desc': 
@@ -54,11 +54,11 @@ $products = $stmt->fetchAll(PDO::FETCH_ASSOC);
         <?php include 'header.php'; ?>
         
          <form method="GET"  style="align-self: flex-end;" class="me-5">
-            <label for="category"class="form-label">Сортировать по: </label>
-            <select type="text" class="" id="sort" name="sort" required>
-                <option value="new"> Новинки </option>
-                <option value="desc"> По убыванию цены </option>
-                <option value="asc"> По возрастанию цены </option>
+            <label for="category"class="form-label">Сортировать : </label>
+            <select  class="" id="sort" name="sort"  onchange="this.form.submit()" required>
+                <option value="new" <?=$sort == 'new' ? 'selected' : '' ?>> Новинки </option>
+                <option value="desc" <?=$sort == 'desc' ? 'selected' : '' ?> > По убыванию цены </option>
+                <option value="asc" <?=$sort == 'asc' ? 'selected' : '' ?> > По возрастанию цены </option>
             </select>
         </form>
         <div class="filter_catalog text-center ms-4">
