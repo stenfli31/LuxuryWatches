@@ -5,6 +5,16 @@
   .logo{
     width: 350px;
   }
+
+  .hero {
+    width: 100%;
+    height: 350px;
+    overflow: hidden;
+  }
+
+   .intro{
+    height: 300px;
+   }
   .product-card{
       width: 200px;
       height: 250px;
@@ -32,6 +42,10 @@
   .catalog-grid{
   grid-template-columns: repeat(4, 210px);
   grid-template-rows: repeat(8, 260px);
+  }
+
+  .carouselCustom{
+    height: 400px;
   }
 }
 

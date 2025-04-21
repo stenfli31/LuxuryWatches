@@ -1,4 +1,6 @@
 
+
+
 const hoverSrc = "./images/icons/heart-fill.svg"
 const favourite = document.querySelectorAll('.heart').forEach(img => 
     {const originalSrc = img.src;
@@ -13,16 +15,14 @@ const favourite = document.querySelectorAll('.heart').forEach(img =>
             img.src = originalSrc;
         }
     });
-
-
-   
-
 });
 
+function onSortChange(value) {
+    const url = new URL(window.location.href);
+    url.searchParams.set('sort', value);
+    window.location.href = url.toString(); // перезагружает с новым параметром
+}
 
-// img.addEventListener('mouseover', () => {
-//     img.src = hoverSrc;
-// });
-// img.addEventListener('mouseout', () => {
-//     img.src = originalSrc;
-// });
+
+
+console.log(typeof onSortChange);

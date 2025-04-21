@@ -1,7 +1,7 @@
 <?php
 
 $host = '127.0.0.1';
-$dbname = 'LuxuryWatchesShop';
+$dbname = 'LuxuryWatchesDB';
 $username = 'root';
 $password = '';
 
