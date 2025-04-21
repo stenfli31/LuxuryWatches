@@ -275,7 +275,7 @@
 .product-card {
   background-color: #ffffff;
   border-radius: 20px;
-  padding: 20px;
+  padding: 15px;
   text-align: center;
   position:relative;
   width: 270px;
@@ -284,10 +284,11 @@
   flex-direction: column;
   align-items: center;
   overflow: hidden;
+  transition: 0.1s;
 }
 
 .product-card:hover{
-  height: 320px;
+  height: 345px;
   z-index: 3;
   box-shadow: 0px 5px 10px rgba(0,0,0,0.3);
 }
@@ -305,11 +306,11 @@
   right: 5px;
   background-color:#CBA135;
   color: #FAF9F6;
-  border-radius: 5px;
+  border-radius: 12px;
   border: 1px solid #e1e1e1;
-  height: 45px;
-  margin-top: 3px;
-  width: 90%;
+  height: 40px;
+  margin-top: 10px;
+  width: 95%;
   
 }
 
@@ -430,6 +431,7 @@ footer {
   border-radius: 25px;
   cursor: pointer;
   font-size: 12px;
+  transition: 0.1s;
 }
 
 .tag-check:checked + .tag-label{

@@ -36,6 +36,7 @@ $brands = $stmt->fetchAll(PDO::FETCH_ASSOC);
 </head>
 <body>
     
+<a href="index.php" class="btn btn-primary admin">Назад</a> 
 
 <div class="container mt-5 card">
     <h2 class="mb-4">Добавление товара</h2>
