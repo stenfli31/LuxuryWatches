@@ -3,7 +3,7 @@ session_start();
 require_once 'db.php';
 
 if (!isset($_SESSION['user_id'])) {
-    header('Location: login.php');
+    header('Location: auth.php');
     exit();
 }
 
@@ -103,7 +103,7 @@ $path = "./images/"
                         <span><b><?= htmlspecialchars($item['product_name']) ?></b></span>
                         <span class="price-cart"><?= number_format($item['price'], 0, ".", " ") ?> ₸</span>
                     </div>
-                    <form method="POST" class="ms-5">
+                    <form method="POST" class="input-cart-form">
                         <input type="number" min="1" name="update_quantity[<?= $item['product'] ?>]" value="<?= $item['quantity'] ?>" class="input-cart" onchange="this.form.submit()">
                     </form>
                     <span class="price ms-5"><b><?= number_format($itemTotal, 0, ".", " ") ?> ₸</b></span>

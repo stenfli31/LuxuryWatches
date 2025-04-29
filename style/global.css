@@ -23,7 +23,7 @@ body {
   font-family: "Inter", sans-serif;
   line-height: 1.6;
   color: #2b2b2b;
-  background-color: #faf9f6;
+  background-color: #faf9f6 !important;
 }
 
 img {

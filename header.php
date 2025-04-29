@@ -20,9 +20,12 @@
             </button>
           </form>
           <div class="user-actions">
-            <button class="action-button" aria-label="Favorites">
-              <img class="heartNav" src="./images/icons/heart.svg" alt="" />
-            </button>
+            
+            <a href="favourites.php">
+              <button class="action-button" aria-label="Favorites">
+                <img class="heartNav" src="./images/icons/heart.svg" alt="" />
+              </button>
+            </a>
             
             <a href="shop-cart.php">
               <button class="action-button" aria-label="Shopping bag">
@@ -38,7 +41,7 @@
         </nav>
         <nav class="secondary-nav">
         <ul>
-          <li><a href="#about">О нас</a></li>
+          <li><a href="about-us.php">О нас</a></li>
           <li><a href="#brands">Бренды</a></li>
           <li><a href="#contacts">Контакты</a></li>
           <li><a href="#warranty">Гарантия</a></li>

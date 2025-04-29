@@ -5,7 +5,7 @@
 }
 
 body{
-  background-color: #faf9f6;
+  background-color: #faf9f6 !important;
 }
 
 .frame {
@@ -465,7 +465,7 @@ footer {
 
 .shop-cart{
   width: 65%;
-  min-height: 300px;
+  min-height: 310px;
 }
 
 .cart-line{
@@ -513,10 +513,15 @@ object-fit: cover;
   width: 180px;
 }
 
+.input-cart-form{
+  margin-left: 3rem;
+}
+
 .input-cart{
   border: none;
   text-align: center;
   width: 100px;
+  background-color: #faf9f6;
 }
 
 .input-cart:hover{

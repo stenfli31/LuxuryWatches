@@ -3,6 +3,14 @@
 <?php
 require_once 'db.php';
 
+
+
+// Получаем все товары в избранном для текущего пользователя
+$stmt = $pdo->prepare("SELECT product_id FROM favorites WHERE user_id = ?");
+$stmt->execute([$_SESSION['user_id']]);
+$favIds = $stmt->fetchAll(PDO::FETCH_COLUMN);
+
+
 function formatPrc($price)
 {
     return number_format($price, 0, ".", " ") . ' ₸';
@@ -178,9 +186,11 @@ $products = $stmt->fetchAll(PDO::FETCH_ASSOC);
                                     class="product-image" />
                                 <h3 class="product-title"><?= htmlspecialchars($product['product_name']) ?></h3>
                                 <p class="product-price"><?= formatPrc($product['price']) ?></p>
-                                <button class="favorite-button" aria-label="Add to favorites">
-                                    <img src="./images/icons/heart.svg" alt="" class="heart" data-hover="./images/icons/heart-fill.svg" />
+                                
+                                <button class="favorite-button" aria-label="Add to favorites" data-product-id="<?= $product['id'] ?>" name="add-to-fav" value="<?= $product['id'] ?>" type="button">
+                                    <img src="<?= in_array($product['id'], $favIds) ? './images/icons/heart-fill.svg' : './images/icons/heart.svg' ?>"  alt="В избранное" class="heart" data-hover="./images/icons/heart-fill.svg" />
                                 </button>
+                                
                              
                                 <form method="POST" action="shop-cart.php" style="width: 100%;">
                                     <button type="submit" name="add_to_cart" value="<?= $product['id'] ?>" class="add-to-cart">В корзину</button>
