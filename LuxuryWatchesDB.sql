@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Хост: 127.0.0.1:3306
--- Время создания: Апр 10 2025 г., 05:26
+-- Время создания: Май 01 2025 г., 20:36
 -- Версия сервера: 8.0.30
 -- Версия PHP: 8.1.9
 
@@ -84,6 +84,8 @@ CREATE TABLE `favorites` (
 INSERT INTO `favorites` (`id`, `user_id`, `product_id`) VALUES
 (9, 1, 6),
 (10, 1, 7),
+(15, 2, 9),
+(14, 2, 10),
 (11, 2, 11),
 (12, 4, 2);
 
@@ -96,11 +98,27 @@ INSERT INTO `favorites` (`id`, `user_id`, `product_id`) VALUES
 CREATE TABLE `orders` (
   `id` int NOT NULL,
   `user_id` int NOT NULL,
-  `time` int NOT NULL,
-  `sum` int NOT NULL,
-  `address` varchar(256) NOT NULL,
-  `payment_method` varchar(50) NOT NULL
+  `address` text NOT NULL,
+  `created_at` datetime NOT NULL,
+  `total_amount` decimal(10,2) NOT NULL,
+  `payment_method` varchar(50) NOT NULL,
+  `status` varchar(50) DEFAULT 'В обработке',
+  `phone` varchar(20) NOT NULL,
+  `email` varchar(100) NOT NULL,
+  `city` varchar(100) NOT NULL,
+  `region` varchar(100) DEFAULT NULL,
+  `zip` varchar(20) DEFAULT NULL,
+  `comment` text
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+--
+-- Дамп данных таблицы `orders`
+--
+
+INSERT INTO `orders` (`id`, `user_id`, `address`, `created_at`, `total_amount`, `payment_method`, `status`, `phone`, `email`, `city`, `region`, `zip`, `comment`) VALUES
+(1, 2, '7 микрорайон 12 дом', '2025-04-30 18:23:12', '10000000.00', 'card', 'В обработке', '+7 (705) 311-95-45', 'alik21201@gmail.com', 'Костанай', 'Костанайская область', '110004', 'тест'),
+(2, 2, '7 микрорайон 12 дом', '2025-04-30 18:27:47', '10000000.00', 'cash', 'В обработке', '+7 (705) 311-95-45', 'alik21201@gmail.com', 'Костанай', 'Костанайская область', '110004', 'тест'),
+(3, 2, '32131', '2025-05-01 20:17:57', '1558000.00', 'card', 'В обработке', '+7 (321) 321-__-__', '3213@32', '3213', '321', '321', '321');
 
 -- --------------------------------------------------------
 
@@ -113,8 +131,16 @@ CREATE TABLE `order_items` (
   `order_id` int NOT NULL,
   `product_id` int NOT NULL,
   `quantity` int NOT NULL,
-  `price` int NOT NULL
+  `price` decimal(10,2) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+--
+-- Дамп данных таблицы `order_items`
+--
+
+INSERT INTO `order_items` (`id`, `order_id`, `product_id`, `quantity`, `price`) VALUES
+(1, 2, 2, 1, '10000000.00'),
+(2, 3, 11, 2, '779000.00');
 
 -- --------------------------------------------------------
 
@@ -192,11 +218,6 @@ INSERT INTO `shopping_cart` (`id`, `user_id`, `product`, `quantity`) VALUES
 (8, 1, 10, 2),
 (9, 1, 7, 2),
 (14, 1, 6, 2),
-(19, 2, 7, 1),
-(20, 2, 1, 1),
-(21, 2, 10, 4),
-(22, 2, 2, 1),
-(23, 2, 11, 3),
 (24, 4, 2, 1),
 (25, 5, 3, 1);
 
@@ -311,19 +332,19 @@ ALTER TABLE `categories`
 -- AUTO_INCREMENT для таблицы `favorites`
 --
 ALTER TABLE `favorites`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
 -- AUTO_INCREMENT для таблицы `orders`
 --
 ALTER TABLE `orders`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT для таблицы `order_items`
 --
 ALTER TABLE `order_items`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT для таблицы `permissions`
@@ -341,7 +362,7 @@ ALTER TABLE `products`
 -- AUTO_INCREMENT для таблицы `shopping_cart`
 --
 ALTER TABLE `shopping_cart`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
 
 --
 -- AUTO_INCREMENT для таблицы `users`
@@ -357,14 +378,14 @@ ALTER TABLE `users`
 -- Ограничения внешнего ключа таблицы `orders`
 --
 ALTER TABLE `orders`
-  ADD CONSTRAINT `orders_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT;
+  ADD CONSTRAINT `orders_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`);
 
 --
 -- Ограничения внешнего ключа таблицы `order_items`
 --
 ALTER TABLE `order_items`
-  ADD CONSTRAINT `order_items_ibfk_1` FOREIGN KEY (`order_id`) REFERENCES `orders` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,
-  ADD CONSTRAINT `order_items_ibfk_2` FOREIGN KEY (`product_id`) REFERENCES `products` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT;
+  ADD CONSTRAINT `order_items_ibfk_1` FOREIGN KEY (`order_id`) REFERENCES `orders` (`id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `order_items_ibfk_2` FOREIGN KEY (`product_id`) REFERENCES `products` (`id`);
 
 --
 -- Ограничения внешнего ключа таблицы `products`
