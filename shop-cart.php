@@ -69,6 +69,7 @@ $path = "./images/"
 <head>
     <meta charset="UTF-8">
     <title>Корзина</title>
+    <link rel="shortcut icon" href="./images/favicon.png" type="image/x-icon">
     <link rel="stylesheet" href="./style/global.css">
     <link rel="stylesheet" href="./style/style.css">
     <link rel="stylesheet" href="./style/media.css">
@@ -78,9 +79,9 @@ $path = "./images/"
 
 <?php include "header.php"; ?>
 
-<div class="d-flex justify-content-around">
-    <div class="shop-cart ms-5 mt-5 mb-5">
-        <h1 class="fs-3 mb-5 ms-5">Ваша корзина товаров</h1>
+<div class="d-flex justify-content-around display-column">
+    <div class="shop-cart ms-md-5 mt-5 mb-md-5">
+        <h1 class="fs-md-3 fs-5 mb-5 ms-md-5">Ваша корзина товаров</h1>
         <hr class="cart-line">
         <div class="container-for-cart">
             <?php if ($cartItems): 
@@ -93,7 +94,7 @@ $path = "./images/"
                     <form method="POST">
                         <input type="hidden" name="delete_product_id" value="<?= $item['product'] ?>">
                         <button type="submit" class="btn p-0 border-0 bg-transparent">
-                            <img src="./images/icons/delete.svg" alt="Удалить" class="delete ms-3 me-3">
+                            <img src="./images/icons/delete.svg" alt="Удалить" class="delete ms-md-3 me-md-3 me-1">
                         </button>
                     </form>
                     <div class="img-container-cart">
@@ -106,7 +107,7 @@ $path = "./images/"
                     <form method="POST" class="input-cart-form">
                         <input type="number" min="1" name="update_quantity[<?= $item['product'] ?>]" value="<?= $item['quantity'] ?>" class="input-cart" onchange="this.form.submit()">
                     </form>
-                    <span class="price ms-5"><b><?= number_format($itemTotal, 0, ".", " ") ?> ₸</b></span>
+                    <span class="price ms-md-5"><b><?= number_format($itemTotal, 0, ".", " ") ?> ₸</b></span>
                 </div>
                 <hr class="cart-line">
             <?php endforeach; ?>
@@ -121,13 +122,75 @@ $path = "./images/"
             <span><b>Итого: <?= number_format($total ?? 0, 0, ".", " ") ?> ₸</b></span>
         </div>
         
-        <a href="order"><button class="confirm-btn">Оформить заказ</button></a>
+        <a href="#order"><button class="confirm-btn">Оформить заказ</button></a>
     </div>
+</div>
+<div class="container my-5" id="order">
+    <h2 class="mb-4">Оформление заказа</h2>
+    <form method="POST" action="order.php">
+        <!-- Телефон -->
+        <div class="mb-3">
+            <label for="phone" class="form-label">Телефон</label>
+            <input type="tel" name="phone" class="form-control" id="phone" placeholder="+7 (___) ___-__-__" required>
+        </div>
+
+        <!-- Email -->
+        <div class="mb-3">
+            <label for="email" class="form-label">Email</label>
+            <input type="email" name="email" class="form-control" id="email" placeholder="example@mail.com" required>
+        </div>
+
+        <!-- Адрес доставки -->
+        <div class="mb-3">
+            <label for="address" class="form-label">Адрес доставки</label>
+            <input type="text" name="address" class="form-control" id="address" required>
+        </div>
+
+        <div class="row mb-3">
+            <div class="col-md-6">
+                <label for="city" class="form-label">Город</label>
+                <input type="text" name="city" class="form-control" id="city" required>
+            </div>
+            <div class="col-md-4">
+                <label for="region" class="form-label">Регион</label>
+                <input type="text" name="region" class="form-control" id="region">
+            </div>
+            <div class="col-md-2">
+                <label for="zip" class="form-label">Индекс</label>
+                <input type="text" name="zip" class="form-control" id="zip" required>
+            </div>
+        </div>
+
+        <!-- Способ оплаты -->
+        <div class="mb-3">
+            <label class="form-label">Способ оплаты</label>
+            <select name="payment_method" class="form-select" required>
+                <option selected disabled value="">Выберите...</option>
+                <option value="card">Карта</option>
+                <option value="cash">Наличные при получении</option>
+                <option value="transfer">Перевод на счёт</option>
+            </select>
+        </div>
+
+        <!-- Комментарий -->
+        <div class="mb-3">
+            <label for="comment" class="form-label">Комментарий к заказу</label>
+            <textarea name="comment" class="form-control" id="comment" rows="3"></textarea>
+        </div>
+
+        <!-- Кнопка -->
+        <button type="submit" class="btn btn-primary">Оформить заказ</button>
+    </form>
 </div>
 
 <?php include "footer.html"; ?>
 
 <script src="./JS/main.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/inputmask@5.0.8/dist/inputmask.min.js"></script>
+<script>
+      // Маска для телефона
+      Inputmask("+7 (999) 999-99-99").mask("#phone");
+    </script>
 </body>
 </html>

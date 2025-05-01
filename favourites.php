@@ -31,7 +31,8 @@ exit();
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <title>Корзина</title>
+    <title>Избранное</title>
+    <link rel="shortcut icon" href="./images/favicon.png" type="image/x-icon">
     <link rel="stylesheet" href="./style/global.css">
     <link rel="stylesheet" href="./style/style.css">
     <link rel="stylesheet" href="./style/media.css">
@@ -42,8 +43,8 @@ exit();
 <?php include "header.php"; ?>
 
 <div class="d-flex justify-content-around">
-    <div class="shop-cart ms-5 mt-5 mb-5">
-        <h1 class="fs-3 mb-5 ms-5">Избранное</h1>
+    <div class="shop-cart ms-md-5 mt-md-5 mb-md-5">
+        <h1 class="fs-md-3 fs-5 mb-5 ms-5">Избранное</h1>
         <hr class="cart-line">
         <div class="container-for-cart">
        <? if ($favorites): 
@@ -52,7 +53,7 @@ exit();
                     <form method="POST">
                         
                         <button type="submit" class="btn p-0 border-0 bg-transparent" name="product_id_fav" value="<?= $item['id'] ?>">
-                            <img src="./images/icons/delete.svg" alt="Удалить" class="delete ms-3 me-3">
+                            <img src="./images/icons/delete.svg" alt="Удалить" class="delete ms-md-3 me-md-3">
                         </button>
                     </form>
                     <div class="img-container-cart">

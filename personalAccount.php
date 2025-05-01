@@ -43,7 +43,7 @@
 <? include 'header.php' ?>
 <div style="height: 45%;">
     <h1 class="text-center fs-3 mt-5">Добро пожаловать, <?= $_SESSION['username'] ?>!</h1>
-    <div class="card col-4 mt-5 ms-5 mb-5">
+    <div class="card col-10 col-md-5 mt-5 ms-3 mb-5">
         <div class="car-body col-12">
             <div class="row mb-3 card-text">
                 <p class="ms-3 mt-3">Имя пользователя: <?= $_SESSION['username'] ?></p>

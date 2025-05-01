@@ -44,3 +44,9 @@ function resetCheckedCheckboxes() {
     window.location.href = 'catalog.php';
     document.getElementById('filterForm').submit();
 }
+const filterToggle = document.querySelector(".filter-toggle");
+const filters = document.querySelector(".filters");
+
+filterToggle.addEventListener("click", () => {
+    filters.classList.toggle("display-none"); 
+});

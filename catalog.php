@@ -21,8 +21,10 @@ $brands = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
 $selectedCategories = $_GET['category'] ?? [];
 $selectedBrands = $_GET['brand'] ?? [];
-$priceFrom = $_GET['priceFrom'] ?? '';
-$priceTo = $_GET['priceTo'] ?? '';
+if ($_SERVER['REQUEST_METHOD'] == "GET") {
+    $priceFrom = $_GET['priceFrom'] ?? '';
+    $priceTo = $_GET['priceTo'] ?? '';
+}
 $search = $_GET['search'] ?? '';
 
 
@@ -42,6 +44,8 @@ if (!empty($selectedBrands) && is_array($selectedBrands)) {
     $inBrand = implode(",", $escaped);
     $sql .= " AND brand IN ($inBrand)";
 }
+
+
 
 if (!empty($priceFrom) or !empty($priceTo)) {
     if (empty($priceFrom)) {
@@ -122,8 +126,9 @@ if (isset($_SESSION['user_id'])) {
                 <option value="asc" <?= ($order == 'asc') ? 'selected' : '' ?>> По возрастанию цены </option>
             </select>
         </form>
-        <div class="filter_catalog text-center ms-4 ">
-            <div class="filters card">
+        <button type="button" class="filter-toggle">Показать фильтры</button>
+        <div class="filter_catalog text-center  ">
+            <div class="filters card ms-3 display-none">
                 <div class="card-header" style="background-color: none;"><b>Подбор товара</b></div>
                 <form method="GET" class="card-body" id="filterForm">
                     <div class="filter-category row mb-4">
@@ -179,14 +184,21 @@ if (isset($_SESSION['user_id'])) {
                     $img_path = "./images/";
                     if (!empty($products)):
                         foreach ($products as $product): ?>
-                            <div class="product-card">
 
-                                <img
-                                    src="<?= $img_path . $product['product_img'] ?>"
-                                    alt="<?= htmlspecialchars($product['product_name']) ?>"
-                                    class="product-image" />
-                                <h3 class="product-title"><?= htmlspecialchars($product['product_name']) ?></h3>
-                                <p class="product-price"><?= formatPrc($product['price']) ?></p>
+                            <div class="product-card">
+                                <a href="product.php?id=<?= $product['id'] ?>" class="product-card-link">
+                                    
+                                    <div class="catalog-card-cont">
+                                        <img
+                                            src="<?= $img_path . $product['product_img'] ?>"
+                                            alt="<?= htmlspecialchars($product['product_name']) ?>"
+                                            class="product-image" />
+                                    </div>
+                                </a>
+                                <div class="product-attributes">
+                                    <h3 class="product-title"><?= htmlspecialchars($product['product_name']) ?></h3>
+                                    <p class="product-price"><?= formatPrc($product['price']) ?></p>
+                                </div>
                                 <?php if (isset($_SESSION['user_id'])): ?>
                                     <button class="favorite-button" aria-label="Add to favorites" data-product-id="<?= $product['id'] ?>" name="add-to-fav" value="<?= $product['id'] ?>" type="button">
                                         <img src="<?= in_array($product['id'], $favIds) ? './images/icons/heart-fill.svg' : './images/icons/heart.svg' ?>" alt="В избранное" class="heart" data-hover="./images/icons/heart-fill.svg" />
@@ -201,11 +213,12 @@ if (isset($_SESSION['user_id'])) {
 
                                 <?php endif ?>
 
-                                <form method="POST" action="shop-cart.php" style="width: 100%;" >
+                                <form method="POST" action="shop-cart.php" style="width: 100%;"  class="form-shop-cart">
                                     <button type="submit" name="add_to_cart" value="<?= $product['id'] ?>" class="add-to-cart">В корзину</button>
                                 </form>
 
                             </div>
+
                         <?php endforeach; ?>
                     <?php else: ?>
                         <div class="text-center" style="width: 100%;">Нет товаров для отображения</div>

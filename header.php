@@ -43,8 +43,8 @@
         <ul>
           <li><a href="about-us.php">О нас</a></li>
           <li><a href="brands.php">Бренды</a></li>
-          <li><a href="#contacts">Контакты</a></li>
-          <li><a href="#warranty">Гарантия</a></li>
+          <li><a href="contacts.php">Контакты</a></li>
+          <li><a href="warranty.php">Гарантия</a></li>
         </ul>
       </nav>
       <hr class="hr">
